@@ -43,9 +43,9 @@ where
     D: Deserializer<'de>,
 {
     Ok(
-        byte_unit::Byte::from_str(String::deserialize(deserializer)?)
+        byte_unit::Byte::parse_str(String::deserialize(deserializer)?, true)
             .map_err(|err| serde::de::Error::custom(err.to_string()))?
-            .get_bytes() as usize,
+            .as_u128() as usize,
     )
 }
 
